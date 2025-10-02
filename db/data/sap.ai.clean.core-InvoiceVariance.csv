@@ -1,0 +1,3 @@
+CompanyCode,Supplier,Invoice,PO,GRIRDelta,PriceVarPct,Flag
+1000,SUPP-1,INV-9001,PO-111,0,1.2,LOW
+1000,SUPP-2,INV-9002,PO-222,1200,8.0,HIGH

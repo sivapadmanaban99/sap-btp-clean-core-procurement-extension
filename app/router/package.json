@@ -1,0 +1,9 @@
+{
+  "name": "@ai-clean-core-poc/approuter",
+  "dependencies": {
+    "@sap/approuter": "^20.0.0"
+  },
+  "scripts": {
+    "start": "node node_modules/@sap/approuter/approuter.js"
+  }
+}

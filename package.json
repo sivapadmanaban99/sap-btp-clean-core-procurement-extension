@@ -1,0 +1,16 @@
+{
+  "name": "@ai-clean-core-poc/main",
+  "version": "0.0.1",
+  "scripts": {
+    "start": "cds-serve",
+    "watch": "cds watch",
+    "deploy:sqlite": "cds deploy --to sqlite:db.sqlite",
+    "deploy:hana": "cds deploy --to hana",
+    "test": "echo \"(tests later)\""
+  },
+  "devDependencies": {
+    "@cap-js/sqlite": "^2.0.3",
+    "@sap/cds": "*",
+    "@sap/cds-dk": "*"
+  }
+}

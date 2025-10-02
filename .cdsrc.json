@@ -1,0 +1,16 @@
+{
+  "requires": {
+    "db": {
+      "kind": "sqlite",
+      "model": ["db", "srv"],
+      "auth": false
+    }
+  },
+  "[production]": {
+    "requires": {
+      "db": {
+        "kind": "hana"
+      }
+    }
+  }
+}
