@@ -28,7 +28,10 @@
                                     <Text text="{ForecastQty}"/>
                                     <Text text="{StockOnHand}"/>
                                     <Text text="{SuggestedReorder}"/>
-                                    <Text text="{RiskFlag}"/>
+                                    <ObjectStatus
+                                        text="{RiskFlag}"
+                                        state="{path: 'RiskFlag', formatter: '.formatRiskState'}"/>
+
                                 </cells>
                             </ColumnListItem>
                         </items>

@@ -6,11 +6,29 @@
     "watch": "cds watch",
     "deploy:sqlite": "cds deploy --to sqlite:db.sqlite",
     "deploy:hana": "cds deploy --to hana",
-    "test": "echo \"(tests later)\""
+    "test": "echo \"(tests later)\"",
+    "watch-materialforecast_fe": "cds watch --open sap.ai.clean.core.ui.materialforecastfe/index.html?sap-ui-xx-viewCache=false --livereload false"
   },
   "devDependencies": {
     "@cap-js/sqlite": "^2.0.3",
-    "@sap/cds": "*",
-    "@sap/cds-dk": "*"
-  }
+    "@sap/cds": "^9.3.1",
+    "@sap/cds-dk": "*",
+    "cds-plugin-ui5": "^0.13.0"
+  },
+  "cds": {
+    "requires": {
+      "db": {
+        "kind": "sqlite"
+      }
+    }
+  },
+  "dependencies": {
+    "@sap/cds": "^6.8.2"
+  },
+  "workspaces": [
+    "app/*"
+  ],
+  "sapux": [
+    "app/materialforecast_fe"
+  ]
 }

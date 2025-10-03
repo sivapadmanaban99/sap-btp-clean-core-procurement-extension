@@ -1,10 +1,15 @@
 sap.ui.define([
     "sap/ui/core/mvc/Controller",
-    "sap/m/MessageToast"
-], function (Controller, MessageToast) {
+    "sap/m/MessageToast",
+    "../util/formatter"
+], function (Controller, MessageToast,formatter) {
+    formatter: formatter,
     "use strict";
-
     return Controller.extend("materialforecast.controller.Main", {
+        formatRiskState: function(sRisk) {
+            return sRisk === "HIGH" ? "Error" : "Success";
+        },
+        
         onInit: function () {
             const oComponent = this.getOwnerComponent();
             const oModel = oComponent.getModel();
