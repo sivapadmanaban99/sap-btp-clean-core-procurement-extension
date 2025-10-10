@@ -1,4 +1,4 @@
-# AI Clean Core POC - Material Forecast Application
+# AI Clean Core - Material Forecast Application
 
 AI-powered material forecast application built with SAP's Clean Core architecture.
 
