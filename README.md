@@ -31,7 +31,7 @@ Access the app at: http://localhost:4004/materialforecast/webapp/index.html
 └── mta.yaml                      # Deployment Config
 ```
 
-### Technologies
+## Technologies
 - SAP CAP Framework
 - UI5 (sap_horizon theme)
 - OData v4
