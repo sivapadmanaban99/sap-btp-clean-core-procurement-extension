@@ -38,8 +38,8 @@ async function pollInstanceUntilDone(instanceId, timeoutMs = 15000, intervalMs =
 
 /** Start BPA by definitionName and return { draftId, status } from context */
 async function startWorkflowAndGetResult(Material, Plant) {
-  if (!BPA_INSTANCES_URL || BPA_INSTANCES_URL.includes('${')) {
-    // Mock BPA response for POC
+  if (!BPA_INSTANCES_URL || BPA_INSTANCES_URL.includes('${') || !BPA_TOKEN) {
+    // Mock BPA response for POC/trial accounts
     return { draftId: `PR-${Material}-${Date.now()}`, status: 'COMPLETED' };
   }
   
