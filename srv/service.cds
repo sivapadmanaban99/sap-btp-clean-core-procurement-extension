@@ -17,4 +17,12 @@ service ForecastService {
   // Unbound action
   @Common.SideEffects.TargetEntities: ['MaterialForecast']
   action RunForecast( items : array of MatPlant ) returns Boolean;
+
+  // NEW: returns simple objects so FE can show IDs in a toast/dialog
+  action SuggestPR( items : array of MatPlant )
+    returns array of {
+      Material   : String(40);
+      Plant      : String(4);
+      PRDraftID  : String(40);
+    };
 }

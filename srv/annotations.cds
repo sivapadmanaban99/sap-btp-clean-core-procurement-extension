@@ -6,9 +6,9 @@ annotate ForecastService.MaterialForecast with @(
     { Value: Plant, Label: 'Plant' },
     { Value: HistPeriod, Label: 'Period' },
     { Value: QtyIssued, Label: 'Qty Issued' },
-    { Value: ForecastQty, Label: 'Forecast Qty' },
     { Value: StockOnHand, Label: 'Stock on Hand' },
-    { Value: SuggestedReorder, Label: 'Suggested Reorder' },
+    { Value: ForecastQty, Label: 'Forecast Qty' },    
+    { Value: SuggestedReorder, Label: 'Suggested Reorder Qty' },
     { Value: RiskFlag, Label: 'Risk Flag' }
   ],
   UI.SelectionFields: [

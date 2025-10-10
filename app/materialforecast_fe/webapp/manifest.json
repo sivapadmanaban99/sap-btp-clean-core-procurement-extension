@@ -134,6 +134,12 @@
                       "id": "RunForecast",
                       "text": "Run Forecast",
                       "press": "sap.ai.clean.core.ui.materialforecastfe.ext.actions.RunForecast.execute"
+                    },
+                    "SuggestPR": {
+                      "id": "SuggestPR",
+                      "text": "Suggest PR",
+                      "type": "Emphasized",
+                      "press": "sap.ai.clean.core.ui.materialforecastfe.ext.actions.SuggestPR.execute"
                     }
                   }
                 }

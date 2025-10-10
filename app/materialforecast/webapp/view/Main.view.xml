@@ -13,9 +13,9 @@
                             <Column><Text text="Plant"/></Column>
                             <Column><Text text="Period"/></Column>
                             <Column><Text text="Qty Issued"/></Column>
-                            <Column><Text text="Forecast Qty"/></Column>
                             <Column><Text text="Stock"/></Column>
-                            <Column><Text text="Reorder"/></Column>
+                            <Column><Text text="Forecast Qty"/></Column>                            
+                            <Column><Text text="Reorder Qty"/></Column>
                             <Column><Text text="Risk"/></Column>
                         </columns>
                         <items>
@@ -23,10 +23,10 @@
                                 <cells>
                                     <Text text="{Material}"/>
                                     <Text text="{Plant}"/>
-                                    <Text text="{HistPeriod}"/>
+                                    <Text text="{HistPeriod}"/>                                    
                                     <Text text="{QtyIssued}"/>
-                                    <Text text="{ForecastQty}"/>
                                     <Text text="{StockOnHand}"/>
+                                    <Text text="{ForecastQty}"/>                                    
                                     <Text text="{SuggestedReorder}"/>
                                     <ObjectStatus
                                         text="{RiskFlag}"

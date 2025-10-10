@@ -1,28 +1,5 @@
-# Dependencies
 node_modules/
-package-lock.json
-
-# Build outputs
-gen/
-dist/
-
-# Database files
-*.sqlite
-*.sqlite-shm
-*.sqlite-wal
-
-# Logs
 *.log
-logs/
-
-# IDE files
-.vscode/
-.idea/
-
-# OS files
-.DS_Store
-Thumbs.db
-
-# Temporary files
-*.tmp
-*.temp
+.env
+db.sqlite
+gen/
