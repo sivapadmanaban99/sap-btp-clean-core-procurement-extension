@@ -9,25 +9,30 @@ annotate ForecastService.MaterialForecast with @(
     { Value: StockOnHand, Label: 'Stock on Hand' },
     { Value: ForecastQty, Label: 'Forecast Qty' },    
     { Value: SuggestedReorder, Label: 'Suggested Reorder Qty' },
+
+    // Risk Flag column
     { Value: RiskFlag, Label: 'Risk Flag' }
   ],
+
   UI.SelectionFields: [
     Material,
     Plant,
     RiskFlag
   ],
+
   UI.HeaderInfo: {
     TypeName: 'Material Forecast',
     TypeNamePlural: 'Material Forecasts',
     Title: { Value: Material }
   },
+
   UI.Identification: [
     { Value: Material },
     { Value: Plant }
   ]
 );
 
-// Annotate the RunForecast action
+// Annotate the RunForecast action so FE refreshes table after execution
 annotate ForecastService.RunForecast with @(
   Common.SideEffects.TargetEntities: ['ForecastService.MaterialForecast']
 );

@@ -127,19 +127,19 @@
               "controlConfiguration": {
                 "@com.sap.vocabularies.UI.v1.LineItem": {
                   "tableSettings": {
-                    "type": "ResponsiveTable"
+                    "type": "ResponsiveTable",
+                    "selectionMode": "Multi"
                   },
                   "actions": {
                     "RunForecast": {
-                      "id": "RunForecast",
                       "text": "Run Forecast",
-                      "press": "sap.ai.clean.core.ui.materialforecastfe.ext.actions.RunForecast.execute"
+                      "press": "sap.ai.clean.core.ui.materialforecastfe.ext.handlers.onRunForecast",
+                      "requiresSelection": true
                     },
                     "SuggestPR": {
-                      "id": "SuggestPR",
                       "text": "Suggest PR",
-                      "type": "Emphasized",
-                      "press": "sap.ai.clean.core.ui.materialforecastfe.ext.actions.SuggestPR.execute"
+                      "press": "sap.ai.clean.core.ui.materialforecastfe.ext.handlers.onSuggestPR",
+                      "requiresSelection": true
                     }
                   }
                 }

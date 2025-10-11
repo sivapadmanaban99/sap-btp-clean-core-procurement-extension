@@ -5,7 +5,8 @@
     "start": "cds-serve",
     "watch": "cds watch",
     "deploy:sqlite": "cds deploy --to sqlite:db.sqlite",
-    "deploy:hana": "cds deploy --to hana",
+    "deploy:hana": "cds deploy --to hana --with-mocks --with-data",
+    "start:hana": "cds run --with-mocks --in-memory?",
     "test": "echo \"(tests later)\"",
     "watch-materialforecast_fe": "cds watch --open sap.ai.clean.core.ui.materialforecastfe/index.html?sap-ui-xx-viewCache=false --livereload false"
   },
@@ -23,7 +24,8 @@
     }
   },
   "dependencies": {
-    "@sap/cds": "^6.8.2"
+    "@sap/cds": "^6.8.2",
+    "@cap-js/hana": "^1"
   },
   "workspaces": [
     "app/*"
