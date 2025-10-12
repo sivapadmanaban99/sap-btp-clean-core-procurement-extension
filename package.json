@@ -24,8 +24,8 @@
     }
   },
   "dependencies": {
-    "@sap/cds": "^6.8.2",
-    "@cap-js/hana": "^1"
+    "@cap-js/hana": "^2",
+    "@sap/cds": "^6.8.2"
   },
   "workspaces": [
     "app/*"

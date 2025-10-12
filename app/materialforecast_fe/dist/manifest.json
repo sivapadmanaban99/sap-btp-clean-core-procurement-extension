@@ -1,0 +1,181 @@
+{
+  "_version": "1.76.0",
+  "sap.app": {
+    "id": "sap.ai.clean.core.ui.materialforecastfe",
+    "type": "application",
+    "i18n": {
+      "bundleUrl": "i18n/i18n.properties",
+      "supportedLocales": [
+        ""
+      ]
+    },
+    "applicationVersion": {
+      "version": "0.0.1"
+    },
+    "title": "{{appTitle}}",
+    "description": "{{appDescription}}",
+    "resources": "resources.json",
+    "sourceTemplate": {
+      "id": "@sap/generator-fiori:lrop",
+      "version": "1.19.0",
+      "toolsId": "6109110f-ce21-446e-aa90-b6af74c26a95"
+    },
+    "dataSources": {
+      "mainService": {
+        "uri": "/odata/v4/",
+        "type": "OData",
+        "settings": {
+          "annotations": [],
+          "odataVersion": "4.0"
+        }
+      }
+    },
+    "crossNavigation": {
+      "inbounds": {
+        "MaterialForecast-Display": {
+          "semanticObject": "MaterialForecast",
+          "action": "Display",
+          "title": "{{MaterialForecast-Display.flpTitle}}",
+          "subTitle": "{{MaterialForecast-Display.flpSubtitle}}",
+          "signature": {
+            "parameters": {},
+            "additionalParameters": "allowed"
+          }
+        }
+      }
+    }
+  },
+  "sap.ui": {
+    "technology": "UI5",
+    "icons": {
+      "icon": "",
+      "favIcon": "",
+      "phone": "",
+      "phone@2": "",
+      "tablet": "",
+      "tablet@2": ""
+    },
+    "deviceTypes": {
+      "desktop": true,
+      "tablet": true,
+      "phone": true
+    }
+  },
+  "sap.ui5": {
+    "flexEnabled": true,
+    "dependencies": {
+      "minUI5Version": "1.141.0",
+      "libs": {
+        "sap.m": {},
+        "sap.ui.core": {},
+        "sap.fe.templates": {}
+      }
+    },
+    "contentDensities": {
+      "compact": true,
+      "cozy": true
+    },
+    "models": {
+      "i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "settings": {
+          "bundleName": "sap.ai.clean.core.ui.materialforecastfe.i18n.i18n",
+          "supportedLocales": [
+            ""
+          ]
+        }
+      },
+      "": {
+        "dataSource": "mainService",
+        "preload": true,
+        "settings": {
+          "operationMode": "Server",
+          "autoExpandSelect": true,
+          "earlyRequests": true
+        }
+      },
+      "@i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "uri": "i18n/i18n.properties",
+        "settings": {
+          "supportedLocales": [
+            ""
+          ]
+        }
+      }
+    },
+    "resources": {
+      "css": []
+    },
+    "routing": {
+      "config": {},
+      "routes": [
+        {
+          "pattern": ":?query:",
+          "name": "MaterialForecastList",
+          "target": "MaterialForecastList"
+        },
+        {
+          "pattern": "MaterialForecast({key}):?query:",
+          "name": "MaterialForecastObjectPage",
+          "target": "MaterialForecastObjectPage"
+        }
+      ],
+      "targets": {
+        "MaterialForecastList": {
+          "type": "Component",
+          "id": "MaterialForecastList",
+          "name": "sap.fe.templates.ListReport",
+          "options": {
+            "settings": {
+              "contextPath": "/MaterialForecast",
+              "variantManagement": "Page",
+              "navigation": {
+                "MaterialForecast": {
+                  "detail": {
+                    "route": "MaterialForecastObjectPage"
+                  }
+                }
+              },
+              "controlConfiguration": {
+                "@com.sap.vocabularies.UI.v1.LineItem": {
+                  "tableSettings": {
+                    "type": "ResponsiveTable",
+                    "selectionMode": "Multi"
+                  },
+                  "actions": {
+                    "RunForecast": {
+                      "text": "Run Forecast",
+                      "press": "sap.ai.clean.core.ui.materialforecastfe.ext.handlers.onRunForecast",
+                      "requiresSelection": true
+                    },
+                    "SuggestPR": {
+                      "text": "Suggest PR",
+                      "press": "sap.ai.clean.core.ui.materialforecastfe.ext.handlers.onSuggestPR",
+                      "requiresSelection": true
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "MaterialForecastObjectPage": {
+          "type": "Component",
+          "id": "MaterialForecastObjectPage",
+          "name": "sap.fe.templates.ObjectPage",
+          "options": {
+            "settings": {
+              "editableHeaderContent": false,
+              "contextPath": "/MaterialForecast"
+            }
+          }
+        }
+      }
+    }
+  },
+  "sap.fiori": {
+    "registrationIds": [],
+    "archeType": "transactional"
+  }
+}

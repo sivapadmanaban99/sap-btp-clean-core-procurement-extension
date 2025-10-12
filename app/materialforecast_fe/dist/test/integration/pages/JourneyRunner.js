@@ -1,0 +1,2 @@
+sap.ui.define(["sap/fe/test/JourneyRunner","sap/ai/clean/core/ui/materialforecastfe/test/integration/pages/MaterialForecastList","sap/ai/clean/core/ui/materialforecastfe/test/integration/pages/MaterialForecastObjectPage"],function(e,a,t){"use strict";var r=new e({launchUrl:sap.ui.require.toUrl("sap/ai/clean/core/ui/materialforecastfe")+"/test/flp.html#app-preview",pages:{onTheMaterialForecastList:a,onTheMaterialForecastObjectPage:t},async:true});return r});
+//# sourceMappingURL=JourneyRunner.js.map

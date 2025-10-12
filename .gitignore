@@ -3,3 +3,5 @@ node_modules/
 .env
 db.sqlite
 gen/
+# added by cds
+.cdsrc-private.json

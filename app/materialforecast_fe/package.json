@@ -17,6 +17,7 @@
     "@sapui5/ts-types": "~1.141.0"
   },
   "scripts": {
+    "build": "ui5 build --clean-dest",
     "deploy-config": "npx -p @sap/ux-ui5-tooling fiori add deploy-config cf"
   }
 }

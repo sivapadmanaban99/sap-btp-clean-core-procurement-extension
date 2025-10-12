@@ -1,0 +1,2 @@
+sap.ui.define(["sap/fe/test/ObjectPage"],function(e){"use strict";var a={actions:{},assertions:{}};return new e({appId:"sap.ai.clean.core.ui.materialforecastfe",componentId:"MaterialForecastObjectPage",contextPath:"/MaterialForecast"},a)});
+//# sourceMappingURL=MaterialForecastObjectPage.js.map
