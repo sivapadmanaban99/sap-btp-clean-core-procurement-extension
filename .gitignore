@@ -1,7 +1,31 @@
-node_modules/
-*.log
+# Sensitive files
+default-env.json
 .env
-db.sqlite
+*.key
+*.pem
+
+# Database files
+*.sqlite
+*.sqlite-shm
+*.sqlite-wal
+
+# Build artifacts
 gen/
-# added by cds
+mta_archives/
+mta-op-*/
+.ai-clean-core-poc_mta_build_tmp/
+
+# Dependencies
+node_modules/
+package-lock.json
+
+# IDE files
+.vscode/
+.idea/
+
+# Logs
+*.log
+npm-debug.log*
+
+# Runtime
 .cdsrc-private.json

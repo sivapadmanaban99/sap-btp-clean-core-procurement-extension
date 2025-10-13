@@ -40,7 +40,8 @@
             </content>
             <footer>
                 <Toolbar>
-                    <Button text="Run Forecast" press="onRunForecast"/>
+                    <Button id="runForecastBtn" text="Run Forecast" press="onRunForecast" enabled="false"/>
+                    <Button id="suggestPRBtn" text="Suggest PR" press="onSuggestPR" enabled="false"/>
                 </Toolbar>
             </footer>
         </Page>

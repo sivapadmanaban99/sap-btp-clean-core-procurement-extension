@@ -117,6 +117,11 @@
             "settings": {
               "contextPath": "/MaterialForecast",
               "variantManagement": "Page",
+              "controllerExtensions": {
+                "sap.fe.templates.ListReport.ListReportController": {
+                  "controllerName": "sap.ai.clean.core.ui.materialforecastfe.ext.controller.ListReportExt"
+                }
+              },
               "navigation": {
                 "MaterialForecast": {
                   "detail": {

@@ -21,8 +21,17 @@ sap.ui.define([
           return MessageToast.show("Select at least one row");
         }
 
+        // Filter only HIGH risk items
+        const aHighRiskCtx = aCtx.filter(function(c) {
+          return c.getObject().RiskFlag === 'HIGH';
+        });
+        
+        if (aHighRiskCtx.length === 0) {
+          return MessageToast.show("Please select items with HIGH risk flag");
+        }
+
         const oModel = oBindingContext ? oBindingContext.getModel() : aCtx[0].getModel();
-        const items = aCtx.map(function(c) {
+        const items = aHighRiskCtx.map(function(c) {
           const o = c.getObject();
           return { Material: o.Material, Plant: o.Plant };
         });

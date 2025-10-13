@@ -1,0 +1,34 @@
+{
+  "VCAP_SERVICES": {
+    "hana": [
+      {
+        "name": "your-hdi-container-name",
+        "instance_name": "your-hdi-container-name",
+        "binding_name": null,
+        "credentials": {
+          "certificate": "YOUR_CERTIFICATE_HERE",
+          "database_id": "YOUR_DATABASE_ID",
+          "driver": "com.sap.db.jdbc.Driver",
+          "hdi_password": "YOUR_HDI_PASSWORD",
+          "hdi_user": "YOUR_HDI_USER",
+          "host": "YOUR_HANA_HOST",
+          "password": "YOUR_PASSWORD",
+          "port": "443",
+          "schema": "YOUR_SCHEMA",
+          "url": "YOUR_JDBC_URL",
+          "user": "YOUR_USER"
+        },
+        "syslog_drain_url": null,
+        "volume_mounts": [],
+        "label": "hana",
+        "provider": null,
+        "plan": "hdi-shared",
+        "tags": [
+          "hana",
+          "database",
+          "relational"
+        ]
+      }
+    ]
+  }
+}

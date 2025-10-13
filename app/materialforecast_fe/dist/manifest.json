@@ -3,12 +3,7 @@
   "sap.app": {
     "id": "sap.ai.clean.core.ui.materialforecastfe",
     "type": "application",
-    "i18n": {
-      "bundleUrl": "i18n/i18n.properties",
-      "supportedLocales": [
-        ""
-      ]
-    },
+    "i18n": "i18n/i18n.properties",
     "applicationVersion": {
       "version": "0.0.1"
     },
@@ -79,10 +74,7 @@
       "i18n": {
         "type": "sap.ui.model.resource.ResourceModel",
         "settings": {
-          "bundleName": "sap.ai.clean.core.ui.materialforecastfe.i18n.i18n",
-          "supportedLocales": [
-            ""
-          ]
+          "bundleName": "sap.ai.clean.core.ui.materialforecastfe.i18n.i18n"
         }
       },
       "": {
@@ -96,12 +88,7 @@
       },
       "@i18n": {
         "type": "sap.ui.model.resource.ResourceModel",
-        "uri": "i18n/i18n.properties",
-        "settings": {
-          "supportedLocales": [
-            ""
-          ]
-        }
+        "uri": "i18n/i18n.properties"
       }
     },
     "resources": {
@@ -130,6 +117,11 @@
             "settings": {
               "contextPath": "/MaterialForecast",
               "variantManagement": "Page",
+              "controllerExtensions": {
+                "sap.fe.templates.ListReport.ListReportController": {
+                  "controllerName": "sap.ai.clean.core.ui.materialforecastfe.ext.controller.ListReportExt"
+                }
+              },
               "navigation": {
                 "MaterialForecast": {
                   "detail": {

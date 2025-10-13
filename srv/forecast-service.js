@@ -8,7 +8,20 @@ const fetch = globalThis.fetch || require('node-fetch');
 const BPA_BASE_URL = process.env.BPA_BASE_URL || '';
 const BPA_INSTANCES_URL = process.env.BPA_INSTANCES_URL || `${BPA_BASE_URL}/workflow/rest/v1/workflow-instances`;
 const BPA_DEFINITION_NAME = process.env.BPA_DEFINITION_NAME || 'SuggestPRWorkflow';
-const BPA_TOKEN           = process.env.BPA_TOKEN || '';                 // optional for now
+const BPA_TOKEN           = process.env.BPA_TOKEN || '';
+
+// SSRF Protection: Whitelist allowed domains
+const ALLOWED_DOMAINS = ['api.workflow.cfapps.sap.hana.ondemand.com', 'workflow-service.cfapps.sap.hana.ondemand.com'];
+
+function validateUrl(url) {
+  if (!url) return false;
+  try {
+    const parsedUrl = new URL(url);
+    return ALLOWED_DOMAINS.includes(parsedUrl.hostname);
+  } catch {
+    return false;
+  }
+}
 
 function bpaHeaders() {
   const h = { 'Content-Type': 'application/json' };
@@ -20,15 +33,26 @@ function bpaHeaders() {
 /** Poll a BPA workflow instance until Completed or timeout */
 async function pollInstanceUntilDone(instanceId, timeoutMs = 15000, intervalMs = 1000) {
   const url = `${BPA_INSTANCES_URL}/${encodeURIComponent(instanceId)}?includeContext=true`;
+  
+  if (!validateUrl(url)) {
+    throw new Error('Invalid or unauthorized URL');
+  }
+  
   const end = Date.now() + timeoutMs;
 
   while (Date.now() < end) {
     const r = await fetch(url, { headers: bpaHeaders() });
     if (!r.ok) {
       const t = await r.text();
-      throw new Error(`Poll failed (${r.status}): ${t}`);
+      throw new Error('Poll failed with HTTP error');
     }
-    const data = await r.json();
+    let data;
+    try {
+      const text = await r.text();
+      data = JSON.parse(text);
+    } catch (e) {
+      throw new Error('Invalid JSON response from BPA service');
+    }
     if (data.status === 'COMPLETED') return data;
     if (data.status === 'ERROR') throw new Error(`BPA instance error: ${JSON.stringify(data.errors || data)}`);
     await new Promise(res => setTimeout(res, intervalMs));
@@ -43,8 +67,12 @@ async function startWorkflowAndGetResult(Material, Plant) {
     return { draftId: `PR-${Material}-${Date.now()}`, status: 'COMPLETED' };
   }
   
+  if (!validateUrl(BPA_INSTANCES_URL)) {
+    throw new Error('Invalid or unauthorized BPA URL');
+  }
+  
   const payload = {
-    definitionName: BPA_DEFINITION_NAME,       // or use definitionId
+    definitionName: BPA_DEFINITION_NAME,
     context: {
       startEvent: { material: Material, plant: Plant }
     }
@@ -57,10 +85,16 @@ async function startWorkflowAndGetResult(Material, Plant) {
   });
 
   const text = await res.text();
-  if (!res.ok) throw new Error(`BPA start failed (${res.status}): ${text}`);
+  if (!res.ok) throw new Error('BPA start failed with HTTP error');
 
   let json = {};
-  try { json = JSON.parse(text || '{}'); } catch { /* ignore */ }
+  try { 
+    if (text && text.trim()) {
+      json = JSON.parse(text);
+    }
+  } catch (e) {
+    throw new Error('Invalid JSON response from BPA service');
+  }
 
   // id may be in body or only in Location header
   let instanceId = json.id || json.instanceId || json.workflowInstanceId;
@@ -68,7 +102,7 @@ async function startWorkflowAndGetResult(Material, Plant) {
     const loc = res.headers.get('location') || res.headers.get('Location');
     if (loc) instanceId = loc.split('/').pop();
   }
-  if (!instanceId) throw new Error(`Cannot determine instance id from response: ${text}`);
+  if (!instanceId) throw new Error('Cannot determine instance id from response');
 
   const inst = await pollInstanceUntilDone(instanceId);
   const draftId = inst.context?.custom?.draftId || inst.context?.draftId || null;
@@ -93,6 +127,14 @@ module.exports = (srv) => {
 
     for (const it of items) {
       const { Material, Plant } = it;
+      
+      // Input validation
+      if (!Material || !Plant || typeof Material !== 'string' || typeof Plant !== 'string') {
+        throw new Error('Invalid Material or Plant data');
+      }
+      if (Material.length > 40 || Plant.length > 4) {
+        throw new Error('Material or Plant data exceeds maximum length');
+      }
 
       const rows = await SELECT.from(MaterialForecast)
         .where({ Material, Plant })
@@ -112,7 +154,7 @@ module.exports = (srv) => {
           .where({ Material, Plant });
 
       } catch (error) {
-        console.error(`Error updating forecast for Material: ${Material}, Plant: ${Plant}`, error);
+        console.error('Error updating forecast for Material/Plant', error);
         throw error;
       }
     }
@@ -122,9 +164,9 @@ module.exports = (srv) => {
     try {
       const { Material, Plant } = items[0];
       const result = await startWorkflowAndGetResult(Material, Plant);
-      req.info(`BPA completed: draftId=${result.draftId}, status=${result.status}`);
+      req.info('BPA workflow completed successfully');
     } catch (e) {
-      req.warn(`BPA call skipped/failed: ${e.message}`);
+      req.warn('BPA call skipped/failed');
     }
 
     return true;
@@ -137,6 +179,14 @@ module.exports = (srv) => {
 
     for (const it of items) {
       const { Material, Plant } = it;
+      
+      // Input validation
+      if (!Material || !Plant || typeof Material !== 'string' || typeof Plant !== 'string') {
+        throw new Error('Invalid Material or Plant data');
+      }
+      if (Material.length > 40 || Plant.length > 4) {
+        throw new Error('Material or Plant data exceeds maximum length');
+      }
 
       // optional guard: suggest only when HIGH risk
       const rows = await SELECT.from(MaterialForecast).where({ Material, Plant }).limit(1);
@@ -148,8 +198,8 @@ module.exports = (srv) => {
         const { draftId } = await startWorkflowAndGetResult(Material, Plant);
         results.push({ Material, Plant, PRDraftID: draftId || '' });
       } catch (e) {
-        req.warn(`SuggestPR failed for ${Material}/${Plant}: ${e.message}`);
-        console.warn(`[BPA] SuggestPR failed for ${Material}/${Plant}:`, e.message);
+        req.warn('SuggestPR failed for material/plant');
+        console.warn('[BPA] SuggestPR failed:', e.message);
         results.push({ Material, Plant, PRDraftID: '' });
       }
     }
