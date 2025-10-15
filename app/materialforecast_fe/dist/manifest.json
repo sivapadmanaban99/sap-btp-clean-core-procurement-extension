@@ -5,7 +5,7 @@
     "type": "application",
     "i18n": "i18n/i18n.properties",
     "applicationVersion": {
-      "version": "0.0.1"
+      "version": "0.0.5"
     },
     "title": "{{appTitle}}",
     "description": "{{appDescription}}",
@@ -17,7 +17,7 @@
     },
     "dataSources": {
       "mainService": {
-        "uri": "/odata/v4/",
+        "uri": "https://4066521dtrial-dev-srv.cfapps.us10-001.hana.ondemand.com/odata/v4/",
         "type": "OData",
         "settings": {
           "annotations": [],
@@ -57,13 +57,17 @@
     }
   },
   "sap.ui5": {
-    "flexEnabled": true,
+    "flexEnabled": false,
+    "config": {
+      "sapFioriId": ""
+    },
     "dependencies": {
       "minUI5Version": "1.141.0",
       "libs": {
         "sap.m": {},
         "sap.ui.core": {},
-        "sap.fe.templates": {}
+        "sap.fe.templates": {},
+        "sap.ui.mdc": {}
       }
     },
     "contentDensities": {
@@ -95,7 +99,14 @@
       "css": []
     },
     "routing": {
-      "config": {},
+      "config": {
+        "routerClass": "sap.m.routing.Router",
+        "type": "View",
+        "viewType": "XML",
+        "path": "sap.ai.clean.core.ui.materialforecastfe.view",
+        "controlId": "app",
+        "controlAggregation": "pages"
+      },
       "routes": [
         {
           "pattern": ":?query:",
@@ -117,11 +128,7 @@
             "settings": {
               "contextPath": "/MaterialForecast",
               "variantManagement": "Page",
-              "controllerExtensions": {
-                "sap.fe.templates.ListReport.ListReportController": {
-                  "controllerName": "sap.ai.clean.core.ui.materialforecastfe.ext.controller.ListReportExt"
-                }
-              },
+              "initialLoad": "Enabled",
               "navigation": {
                 "MaterialForecast": {
                   "detail": {
@@ -169,5 +176,12 @@
   "sap.fiori": {
     "registrationIds": [],
     "archeType": "transactional"
+  },
+  "sap.cloud": {
+    "public": true,
+    "service": "materialforecast"
+  },
+  "sap.platform.hcp": {
+    "uri": ""
   }
 }

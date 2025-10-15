@@ -1,16 +1,35 @@
 // server.js - improved static server for UI5 / Fiori apps
 const express = require('express');
+const { createProxyMiddleware } = require('http-proxy-middleware');
 const path = require('path');
 const app = express();
 
 const port = process.env.PORT || process.env.VCAP_APP_PORT || 8080;
 const distPath = path.join(__dirname, 'dist');
 
+// Proxy OData requests to cloud backend
+app.use('/odata', createProxyMiddleware({
+  target: 'https://4066521dtrial-dev-srv.cfapps.us10-001.hana.ondemand.com',
+  changeOrigin: true,
+  logLevel: 'debug',
+  onProxyReq: (proxyReq, req, res) => {
+    // Remove problematic headers
+    proxyReq.removeHeader('sap-cancel-on-close');
+  }
+}));
+
+// Also proxy $batch requests
+app.use('/$batch', createProxyMiddleware({
+  target: 'https://4066521dtrial-dev-srv.cfapps.us10-001.hana.ondemand.com/odata/v4',
+  changeOrigin: true,
+  logLevel: 'debug',
+  onProxyReq: (proxyReq, req, res) => {
+    proxyReq.removeHeader('sap-cancel-on-close');
+  }
+}));
+
 // Serve static files (do not auto-serve index for folders)
 app.use(express.static(distPath, { index: false }));
-
-// Optional: if you have API endpoints proxied here, add routes before the SPA fallback.
-// e.g. app.use('/odata', proxy(...))  OR handle static JSON endpoints.
 //
 // --- SPA fallback for navigation requests only ---
 // Only return index.html for requests that accept HTML (typical browser nav).

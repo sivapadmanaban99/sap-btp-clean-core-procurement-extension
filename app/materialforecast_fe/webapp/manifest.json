@@ -17,7 +17,7 @@
     },
     "dataSources": {
       "mainService": {
-        "uri": "/odata/v4/",
+        "uri": "https://4066521dtrial-dev-srv.cfapps.us10-001.hana.ondemand.com/odata/v4/",
         "type": "OData",
         "settings": {
           "annotations": [],
@@ -57,13 +57,14 @@
     }
   },
   "sap.ui5": {
-    "flexEnabled": true,
+    "flexEnabled": false,
     "dependencies": {
       "minUI5Version": "1.141.0",
       "libs": {
         "sap.m": {},
         "sap.ui.core": {},
-        "sap.fe.templates": {}
+        "sap.fe.templates": {},
+        "sap.ui.mdc": {}
       }
     },
     "contentDensities": {
@@ -169,5 +170,9 @@
   "sap.fiori": {
     "registrationIds": [],
     "archeType": "transactional"
+  },
+  "sap.cloud": {
+    "public": true,
+    "service": "materialforecast"
   }
 }

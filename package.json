@@ -19,7 +19,10 @@
   "cds": {
     "requires": {
       "db": {
-        "kind": "hana"
+        "kind": "sqlite",
+        "[production]": {
+          "kind": "hana"
+        }
       }
     }
   },

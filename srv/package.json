@@ -8,6 +8,18 @@
     "start": "cds-serve"
   },
   "dependencies": {
-    "@sap/cds": "^7"
+    "@sap/cds": "^9",
+    "@cap-js/hana": "^2",
+    "@sap/xssec": "^4"
+  },
+  "cds": {
+    "requires": {
+      "db": {
+        "kind": "hana"
+      },
+      "auth": {
+        "kind": "mocked"
+      }
+    }
   }
 }

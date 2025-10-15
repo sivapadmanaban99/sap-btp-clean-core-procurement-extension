@@ -31,7 +31,7 @@ modules:
   # ----------------------------
   - name: srv
     type: nodejs
-    path: srv
+    path: gen/srv
     parameters:
       memory: 512M
       disk-quota: 512M

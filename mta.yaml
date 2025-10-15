@@ -15,26 +15,24 @@ build-parameters:
         - cds build --production
 
 modules:
-  # ----------------------------
-  # 1. Database (HDI) Module
-  # ----------------------------
+  # Database (HDI) Module
   - name: db
     type: hdb
     path: gen/db
     parameters:
+      memory: 128M
+      disk-quota: 256M
       buildpack: nodejs_buildpack
     requires:
       - name: hana-db
 
-  # ----------------------------
-  # 2. Service (CAP Node.js)
-  # ----------------------------
+  # Service (CAP Node.js)
   - name: srv
     type: nodejs
-    path: srv
+    path: gen/srv
     parameters:
-      memory: 512M
-      disk-quota: 512M
+      memory: 256M
+      disk-quota: 256M
       buildpack: nodejs_buildpack
     requires:
       - name: hana-db
@@ -43,9 +41,27 @@ modules:
         properties:
           srv-url: ${default-url}
 
-  # ----------------------------
-  # 3. UI (Fiori Elements)
-  # ----------------------------
+  # Router (App Router)
+  - name: router
+    type: nodejs
+    path: app/router
+    parameters:
+      memory: 32M
+      disk-quota: 64M
+    requires:
+      - name: srv-api
+        group: destinations
+        properties:
+          name: srv-api
+          url: ~{srv-url}
+          forwardAuthToken: true
+    provides:
+      - name: app-api
+        properties:
+          app-protocol: ${protocol}
+          app-uri: ${default-uri}
+
+  # UI (Fiori Elements)
   - name: materialforecast_fe
     type: html5
     path: app/materialforecast_fe
@@ -54,15 +70,32 @@ modules:
       commands:
         - npm install
         - npm run build
+      supported-platforms: []
+    parameters:
+      disk-quota: 256M
+      memory: 256M
     requires:
-      - name: srv-api
+      - name: html5-repo-host
+        parameters:
+          content-target: true
 
 resources:
-  # ----------------------------
-  # 4. HANA HDI Container
-  # ----------------------------
+  # HANA HDI Container
   - name: hana-db
     type: com.sap.xs.hdi-container
     parameters:
       service: hana
       service-plan: hdi-shared
+      
+  # HTML5 Application Repository
+  - name: html5-repo-host
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: html5-apps-repo
+      service-plan: app-host
+      
+  - name: html5-repo-runtime
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: html5-apps-repo
+      service-plan: app-runtime
