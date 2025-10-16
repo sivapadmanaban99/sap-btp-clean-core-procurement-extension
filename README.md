@@ -1,3 +1,5 @@
+![Clean Core Procurement Automation](github%20banner.png)
+
 # 🧠 Driving Intelligent Procurement Transformation with SAP BTP Clean Core Extensions
 
 A **Clean Core side-by-side extension** built on **SAP Business Technology Platform (BTP)** — demonstrating how **SAP CAP, HANA Cloud, and Build Process Automation** can deliver **intelligent procurement automation** while maintaining full **Clean Core compliance**.
@@ -74,13 +76,16 @@ Provides unified user access with an integrated tile for the Material Forecast a
 
 ## 🪄 Demo Snapshots
 
-![HANA Cloud](hana_table.png)  
+![HANA Cloud](SAP%20Hana%20Database%20Explorer.png)  
 *SAP HANA Database Explorer — Material Forecast Table*
 
-![BPA Workflow](bpa_workflow.png)  
+![BPA Workflow](SuggestPRWorkflow.png)  
 *SAP Build Process Automation — Suggest PR Workflow*
 
-![Work Zone](workzone_site.png)  
+![WorkZone Site](WorkZone%20Site.png)
+
+
+![WorkZone App](WorkZone%20App.png)
 *SAP Build Work Zone — SCM Site Launch Tile*
 
 ---
@@ -145,7 +150,7 @@ This project demonstrates how **Clean Core extensibility** on **SAP BTP** can de
 SAP BTP & AI Consultant | Clean Core & S/4HANA Extension Architect  
 
 🔗 LinkedIn: [linkedin.com/in/sivapadmanaban](https://linkedin.com/in/sivapadmanaban)  
-📧 Email: [your-email@example.com]
+📧 Email: sivapadmanaban99@gmail.com
 
 ---
 
