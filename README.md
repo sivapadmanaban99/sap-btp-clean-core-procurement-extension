@@ -20,7 +20,7 @@ Built to align with **SAP’s Clean Core extensibility strategy**, the solution 
 
 ## 🏗️ Architecture Overview
 
-![Architecture Diagram](sap_clean_core_solution_design.png)
+![Architecture Diagram](sap_arch_diagram_latest.png)
 
 > Clean Core architecture leveraging **SAP Build**, **CAP**, **HANA Cloud**, and **Process Automation**.
 
@@ -83,10 +83,10 @@ Provides unified user access with an integrated tile for the Material Forecast a
 *SAP Build Process Automation — Suggest PR Workflow*
 
 ![WorkZone Site](WorkZone%20Site.png)
-
+*SAP Build Work Zone — SCM Site Launch Tile*
 
 ![WorkZone App](WorkZone%20App.png)
-*SAP Build Work Zone — SCM Site Launch Tile*
+*SCM Material Forecasting App*
 
 ---
 
