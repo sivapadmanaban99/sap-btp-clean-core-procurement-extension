@@ -86,6 +86,8 @@ Provides unified user access with an integrated tile for the Material Forecast a
 *SAP Build Work Zone — SCM Site Launch Tile*
 
 ![WorkZone App](WorkZone%20App.png)
+
+![Material Forecast App](Material%20Forecast%20App.png)
 *SCM Material Forecasting App*
 
 ---
